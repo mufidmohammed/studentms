@@ -4,24 +4,25 @@ error_reporting(0);
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sturecmsaid']==0)) {
   header('location:logout.php');
-  } else{
-   if(isset($_POST['submit']))
-  {
- $nottitle=$_POST['nottitle'];
- $classid=$_POST['classid'];
- $notmsg=$_POST['notmsg'];
- $eid=$_GET['editid'];
-$sql="update tblnotice set NoticeTitle=:nottitle,ClassId=:classid, NoticeMsg=:notmsg where ID=:eid";
-$query=$dbh->prepare($sql);
-$query->bindParam(':nottitle',$nottitle,PDO::PARAM_STR);
-$query->bindParam(':classid',$classid,PDO::PARAM_STR);
-$query->bindParam(':notmsg',$notmsg,PDO::PARAM_STR);
-$query->bindParam(':eid',$eid,PDO::PARAM_STR);
- $query->execute();
-  echo '<script>alert("Notice has been updated")</script>';
+} 
+
+if(isset($_POST['submit']))
+{
+  $nottitle=$_POST['nottitle'];
+  $classid=$_POST['classid'];
+  $notmsg=$_POST['notmsg'];
+  $eid=$_GET['editid'];
+  $sql="update tblnotice set NoticeTitle=:nottitle,ClassId=:classid, NoticeMsg=:notmsg where ID=:eid";
+  $query=$dbh->prepare($sql);
+  $query->bindParam(':nottitle',$nottitle,PDO::PARAM_STR);
+  $query->bindParam(':classid',$classid,PDO::PARAM_STR);
+  $query->bindParam(':notmsg',$notmsg,PDO::PARAM_STR);
+  $query->bindParam(':eid',$eid,PDO::PARAM_STR);
+  $query->execute();
+    echo '<script>alert("Notice has been updated")</script>';
 }
 
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -144,4 +145,4 @@ foreach($result2 as $row1)
     <script src="js/select2.js"></script>
     <!-- End custom js for this page -->
   </body>
-</html><?php }  ?>
+</html>

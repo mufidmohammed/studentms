@@ -42,5 +42,11 @@ foreach($results as $row)
                 <i class="icon-book-open menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="view-score.php">
+                <span class="menu-title">View Scores</span>
+                <i class="icon-book-open menu-icon"></i>
+              </a>
+            </li>
           </ul>
         </nav>

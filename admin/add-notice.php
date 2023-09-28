@@ -2,36 +2,34 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
+if (strlen($_SESSION['sturecmsaid'] == 0)) {
   header('location:logout.php');
-  } else{
-   if(isset($_POST['submit']))
-  {
- $nottitle=$_POST['nottitle'];
- $classid=$_POST['classid'];
- $notmsg=$_POST['notmsg'];
-$sql="insert into tblnotice(NoticeTitle,ClassId,NoticeMsg)values(:nottitle,:classid,:notmsg)";
-$query=$dbh->prepare($sql);
-$query->bindParam(':nottitle',$nottitle,PDO::PARAM_STR);
-$query->bindParam(':classid',$classid,PDO::PARAM_STR);
-$query->bindParam(':notmsg',$notmsg,PDO::PARAM_STR);
- $query->execute();
-   $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
-    echo '<script>alert("Notice has been added.")</script>';
-echo "<script>window.location.href ='add-notice.php'</script>";
-  }
-  else
-    {
-         echo '<script>alert("Something Went Wrong. Please try again")</script>';
+} else {
+  if (isset($_POST['submit'])) {
+    $nottitle = $_POST['nottitle'];
+    $classid = $_POST['classid'];
+    $notmsg = $_POST['notmsg'];
+    $sql = "insert into tblnotice(NoticeTitle,ClassId,NoticeMsg)values(:nottitle,:classid,:notmsg)";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':nottitle', $nottitle, PDO::PARAM_STR);
+    $query->bindParam(':classid', $classid, PDO::PARAM_STR);
+    $query->bindParam(':notmsg', $notmsg, PDO::PARAM_STR);
+    $query->execute();
+    $LastInsertId = $dbh->lastInsertId();
+    if ($LastInsertId > 0) {
+      echo '<script>alert("Notice has been added.")</script>';
+      echo "<script>window.location.href ='add-notice.php'</script>";
+    } else {
+      echo '<script>alert("Something Went Wrong. Please try again")</script>';
     }
-}
-  ?>
-<!DOCTYPE html>
-<html lang="en">
+  }
+?>
+  <!DOCTYPE html>
+  <html lang="en">
+
   <head>
-   
-    <title>Student  Management System|| Add Notice</title>
+
+    <title>Student Management System|| Add Notice</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
@@ -45,16 +43,17 @@ echo "<script>window.location.href ='add-notice.php'</script>";
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="css/style.css" />
-    
+
   </head>
+
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
+      <?php include_once('includes/header.php'); ?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
+        <?php include_once('includes/sidebar.php'); ?>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -68,44 +67,43 @@ echo "<script>window.location.href ='add-notice.php'</script>";
               </nav>
             </div>
             <div class="row">
-          
+
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title" style="text-align: center;">Add Notice</h4>
-                   
+
                     <form class="forms-sample" method="post" enctype="multipart/form-data">
-                      
+
                       <div class="form-group">
                         <label for="exampleInputName1">Notice Title</label>
                         <input type="text" name="nottitle" value="" class="form-control" required='true'>
                       </div>
-                     
+
                       <div class="form-group">
                         <label for="exampleInputEmail3">Notice For</label>
-                        <select  name="classid" class="form-control" required='true'>
+                        <select name="classid" class="form-control" required='true'>
                           <option value="">Select Class</option>
-                         <?php 
+                          <?php
 
-$sql2 = "SELECT * from    tblclass ";
-$query2 = $dbh -> prepare($sql2);
-$query2->execute();
-$result2=$query2->fetchAll(PDO::FETCH_OBJ);
+                          $sql2 = "SELECT * from    tblclass ";
+                          $query2 = $dbh->prepare($sql2);
+                          $query2->execute();
+                          $result2 = $query2->fetchAll(PDO::FETCH_OBJ);
 
-foreach($result2 as $row1)
-{          
-    ?>  
-<option value="<?php echo htmlentities($row1->ID);?>"><?php echo htmlentities($row1->ClassName);?> <?php echo htmlentities($row1->Section);?></option>
- <?php } ?> 
+                          foreach ($result2 as $row1) {
+                          ?>
+                            <option value="<?php echo htmlentities($row1->ID); ?>"><?php echo htmlentities($row1->ClassName); ?> <?php echo htmlentities($row1->Section); ?></option>
+                          <?php } ?>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">Notice Message</label>
                         <textarea name="notmsg" value="" class="form-control" required='true'></textarea>
                       </div>
-                   
+
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
-                     
+
                     </form>
                   </div>
                 </div>
@@ -114,7 +112,7 @@ foreach($result2 as $row1)
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+          <?php include_once('includes/footer.php'); ?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -138,4 +136,5 @@ foreach($result2 as $row1)
     <script src="js/select2.js"></script>
     <!-- End custom js for this page -->
   </body>
-</html><?php }  ?>
+
+  </html><?php }  ?>
