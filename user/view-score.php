@@ -6,12 +6,6 @@ if (strlen($_SESSION['sturecmsuid'] == 0)) {
     header('location:logout.php');
 }
 
-// if ($_POST['student_id']) {
-//     $_SESSION['student_id'] = $_POST['student_id'];
-// } elseif (!$_SESSION['student_id']) {
-//     header("Location: dashboard.php");
-// }
-
 $id = $_SESSION['sturecmsuid'];
 
 $sql = "SELECT `ID` FROM `tblstudent` WHERE `ID` = :id ";
